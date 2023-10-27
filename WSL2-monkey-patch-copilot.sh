@@ -7,7 +7,7 @@ _COPILOTCHATDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilo
 patch (){
     local _EXTENSIONFILEPATH="$1/dist/extension.js"
     if [[ -f "$_EXTENSIONFILEPATH" ]]; then
-        printf "Found Copilot Extension, applying 'rejectUnauthorized' patches to %s..." "$_EXTENSIONFILEPATH"
+        printf "Found Copilot Extension, applying 'rejectUnauthorized' patches to %s...\n" "$_EXTENSIONFILEPATH"
         perl -pi.bak0 -e 's/,rejectUnauthorized:[a-z]}(?!})/,rejectUnauthorized:false}/g' "${_EXTENSIONFILEPATH}"
         sed -i.bak1 's/d={...l,/d={...l,rejectUnauthorized:false,/g' "${_EXTENSIONFILEPATH}"
     else
