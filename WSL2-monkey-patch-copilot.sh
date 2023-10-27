@@ -2,7 +2,7 @@
 
 _VSCODEDIR=~/".vscode-server/extensions"
 _COPILOTDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilot-[1-9]*" | sort -V | tail -1)"
-_COPILOTCHATDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilot-chat-[1-9]*" | sort -V | tail -1)"
+_COPILOTCHATDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilot-chat-[0-9]*" | sort -V | tail -1)"
 
 patch (){
     local _EXTENSIONFILEPATH="$1/dist/extension.js"
