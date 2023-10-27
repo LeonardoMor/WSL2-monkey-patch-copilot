@@ -15,6 +15,7 @@ patch (){
     fi
 }
 
-for path in "$_COPILOTDIR" "$_COPILOTCHATDIR"; do
+# for path in "$_COPILOTDIR" "$_COPILOTCHATDIR"; do
+for path in "$_COPILOTCHATDIR"; do
     patch "$path"
 done
