@@ -73,7 +73,7 @@ while getopts ":hu" opt; do
 done
 shift $((OPTIND - 1))
 
-if [[ $_UNDO -eq 0 && $# -eq 0 ]]; then
+if [[ $# -eq 0 ]]; then
     printf "Indicate what you want to patch.\n" >&2
     help
     exit 1
