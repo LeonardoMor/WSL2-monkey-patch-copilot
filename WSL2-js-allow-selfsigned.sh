@@ -106,6 +106,6 @@ export NODE_EXTRA_CA_CERTS='"$_SELFSIGNED"'\
 q
 }
 }
-/^(export NODE_EXTRA_CA_CERTS=)(.*)/{ s||\1\2:'"$_SELFSIGNED"'|p; h; }' -- "$_SRC"
+/^(export NODE_EXTRA_CA_CERTS=)(\")?(.*)(\")?/{ s||\1\"\3:'"$_SELFSIGNED"'\"|p; h; }' -- "$_SRC"
 printf "\ntail %s\n\n" "$_SRC"
 tail "$_SRC"
