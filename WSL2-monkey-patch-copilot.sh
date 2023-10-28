@@ -3,7 +3,7 @@
 _VSCODEDIR=~/".vscode-server/extensions"
 _COPILOTDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilot-[1-9]*" | sort -V | tail -1)"
 _COPILOTCHATDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilot-chat-[0-9]*" | sort -V | tail -1)"
-UNDO=0
+_UNDO=0
 
 patch (){
     local _EXTENSIONFILEPATH="$1/dist/extension.js"
@@ -35,7 +35,7 @@ while getopts ":hu" opt; do
             exit 0
             ;;
         u)
-            UNDO=1
+            _UNDO=1
             ;;
         \? )
             echo "Invalid Option: -$OPTARG" 1>&2
@@ -55,14 +55,14 @@ fi
 for c do
     case $c in
         copilot)
-            if [[ $UNDO -eq 0 ]]; then
+            if [[ $_UNDO -eq 0 ]]; then
                 patch "$_COPILOTDIR"
             else
                 undo "$_COPILOTDIR"
             fi
             ;;
         chat)
-            if [[ $UNDO -eq 0 ]]; then
+            if [[ $_UNDO -eq 0 ]]; then
                 patch "$_COPILOTCHATDIR"
             else
                 undo "$_COPILOTCHATDIR"
