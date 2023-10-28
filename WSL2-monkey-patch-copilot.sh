@@ -14,7 +14,7 @@ _COPILOTCHATDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilo
 _UNDO=0
 
 help() {
-    cat << EOF
+    cat <<EOF
 Description:
     A script to patch the GitHub Copilot and Copilot Chat extensions for VS Code to allow them to work with self-signed certificates.
 
@@ -34,7 +34,7 @@ Updates to these extensions will likely break the patch.
 EOF
 }
 
-patch (){
+patch() {
     local _EXTENSIONFILEPATH="$1/dist/extension.js"
     if [[ -f "$_EXTENSIONFILEPATH" ]]; then
         printf "Applying 'rejectUnauthorized' patches to %s...\nBe sure to restart VS Code.\n" "$_EXTENSIONFILEPATH"
@@ -45,7 +45,7 @@ patch (){
     fi
 }
 
-undo (){
+undo() {
     local _EXTENSIONFILEPATH="$1/dist/extension.js"
     if [[ -f "$_EXTENSIONFILEPATH" ]]; then
         printf "Undoing 'rejectUnauthorized' patches to %s...\nBe sure to restart VS Code.\n" "$_EXTENSIONFILEPATH"
@@ -58,17 +58,17 @@ undo (){
 # Parsing options
 while getopts ":hu" opt; do
     case $opt in
-        h)
-            help
-            exit 0
-            ;;
-        u)
-            _UNDO=1
-            ;;
-        \? )
-            echo "Invalid Option: -$OPTARG" 1>&2
-            exit 1
-            ;;
+    h)
+        help
+        exit 0
+        ;;
+    u)
+        _UNDO=1
+        ;;
+    \?)
+        echo "Invalid Option: -$OPTARG" 1>&2
+        exit 1
+        ;;
     esac
 done
 shift $((OPTIND - 1))
@@ -80,25 +80,25 @@ if [[ $# -eq 0 ]]; then
 fi
 
 # Main logic
-for c do
+for c; do
     case $c in
-        copilot)
-            if [[ $_UNDO -eq 0 ]]; then
-                patch "$_COPILOTDIR"
-            else
-                undo "$_COPILOTDIR"
-            fi
-            ;;
-        chat)
-            if [[ $_UNDO -eq 0 ]]; then
-                patch "$_COPILOTCHATDIR"
-            else
-                undo "$_COPILOTCHATDIR"
-            fi
-            ;;
-        *)
-            echo "Invalid Argument: $c" >&2
-            exit 1
-            ;;
+    copilot)
+        if [[ $_UNDO -eq 0 ]]; then
+            patch "$_COPILOTDIR"
+        else
+            undo "$_COPILOTDIR"
+        fi
+        ;;
+    chat)
+        if [[ $_UNDO -eq 0 ]]; then
+            patch "$_COPILOTCHATDIR"
+        else
+            undo "$_COPILOTCHATDIR"
+        fi
+        ;;
+    *)
+        echo "Invalid Argument: $c" >&2
+        exit 1
+        ;;
     esac
 done
