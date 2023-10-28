@@ -8,7 +8,7 @@ UNDO=0
 patch (){
     local _EXTENSIONFILEPATH="$1/dist/extension.js"
     if [[ -f "$_EXTENSIONFILEPATH" ]]; then
-        printf "Applying 'rejectUnauthorized' patches to %s...\nBe sure to restart VS Code." "$_EXTENSIONFILEPATH"
+        printf "Applying 'rejectUnauthorized' patches to %s...\nBe sure to restart VS Code.\n" "$_EXTENSIONFILEPATH"
         perl -pi.bak0 -e 's/,rejectUnauthorized:[a-z]}(?!})/,rejectUnauthorized:false}/g' "${_EXTENSIONFILEPATH}"
         sed -i.bak1 's/d={...l,/d={...l,rejectUnauthorized:false,/g' "${_EXTENSIONFILEPATH}"
     else
@@ -19,7 +19,7 @@ patch (){
 undo (){
     local _EXTENSIONFILEPATH="$1/dist/extension.js"
     if [[ -f "$_EXTENSIONFILEPATH" ]]; then
-        printf "Undoing 'rejectUnauthorized' patches to %s...\nBe sure to restart VS Code." "$_EXTENSIONFILEPATH"
+        printf "Undoing 'rejectUnauthorized' patches to %s...\nBe sure to restart VS Code.\n" "$_EXTENSIONFILEPATH"
         mv "${_EXTENSIONFILEPATH}.bak0" "${_EXTENSIONFILEPATH}"
     else
         echo "Couldn't find the extension.js file, please verify paths and try again..."
