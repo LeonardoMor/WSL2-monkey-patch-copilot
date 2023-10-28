@@ -84,7 +84,7 @@ fi
 # Dump the certificates for a connection to GitHub Copilot API
 awk --assign=hostname="$_HOSTNAME" --source='
     /-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/{if(/-----BEGIN CERTIFICATE-----/){a++}
-    out="/tmp/hostname"a".crt"; print >out}' -- <(echo "" | openssl s_client -showcerts -connect api.githubcopilot.com:443)
+    out="/tmp/hostname"a".crt"; print >out}' -- <(echo "" | openssl s_client -showcerts -connect api.githubcopilot.com:443 2>/dev/null)
 mkdir -p "$_CERTDIR"
 # Make them pem files, find the self-signed ones and save them
 for i in "/tmp/$_HOSTNAME"*.crt; do
