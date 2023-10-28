@@ -13,6 +13,27 @@ _COPILOTDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilot-[1
 _COPILOTCHATDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilot-chat-[0-9]*" | sort -V | tail -1)"
 _UNDO=0
 
+help() {
+    cat << EOF
+Description:
+    A script to patch the GitHub Copilot and Copilot Chat extensions for VS Code to allow them to work with self-signed certificates.
+
+Usage:
+    
+    WSL2-monkey-patch-copilot.sh [OPTIONS] chat [copilot]
+
+Options:
+  -h  Show this help message.
+  -u  Undo the patch.
+
+Arguments:
+  copilot   Patch the GitHub Copilot extension.
+  chat      Patch the GitHub Copilot Chat extension.
+
+Updates to these extensions will likely break the patch.
+EOF
+}
+
 patch (){
     local _EXTENSIONFILEPATH="$1/dist/extension.js"
     if [[ -f "$_EXTENSIONFILEPATH" ]]; then
@@ -38,8 +59,7 @@ undo (){
 while getopts ":hu" opt; do
     case $opt in
         h)
-            echo "Usage: $0 [-h]"
-            echo "  -h  Show this help message"
+            help
             exit 0
             ;;
         u)
