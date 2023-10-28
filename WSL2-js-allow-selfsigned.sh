@@ -62,10 +62,6 @@ while getopts ":hu" opt; do
 done
 shift $((OPTIND - 1))
 
-if ((_UNDO == 1)); then
-    undo
-fi
-
 # We'll know some shell rcs. But if the user spcifies an argument, we'll use that instead as the rc path.
 if [[ $1 ]]; then
     _SRC="$1"
@@ -79,6 +75,10 @@ else
         exit 1
         ;;
     esac
+fi
+
+if ((_UNDO == 1)); then
+    undo
 fi
 
 # Dump the certificates for a connection to GitHub Copilot API
