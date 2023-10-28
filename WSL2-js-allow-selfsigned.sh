@@ -33,9 +33,9 @@ EOF
 }
 
 undo() {
-    if [[ -f "$_SRC.bak" ]]; then
+    if [[ -f "${_SRC}.bak" ]]; then
         printf "Undoing changes to %s...\n" "$_SRC"
-        mv "$_SRC.bak" "$_SRC"
+        mv "${_SRC}.bak" "$_SRC"
         exit 0
     else
         echo "Couldn't find the backup file, please verify paths and try again..." >&2
