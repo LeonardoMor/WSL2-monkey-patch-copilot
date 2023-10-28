@@ -63,7 +63,7 @@ else
 fi
 
 # Dump the certificates for a connection to GitHub Copilot API
-awk --assign=hostname="$_HOSTNAME" '
+awk --assign=hostname="$_HOSTNAME" --source='
     /-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/{if(/-----BEGIN CERTIFICATE-----/){a++}
     out="/tmp/hostname"a".crt"; print >out}' -- <(echo "" | openssl s_client -showcerts -connect api.githubcopilot.com:443)
 mkdir -p "$_CERTDIR"
