@@ -11,7 +11,7 @@
 # October, 2023
 
 _HOSTNAME="$(hostname)"
-_CERTDIR=/etc/ssl/certs
+_CERTDIR=~/.self-signed_certs
 
 help() {
     cat <<EOF
@@ -84,12 +84,12 @@ fi
 # Dump the certificates for a connection to GitHub Copilot API
 awk --assign=hostname="$_HOSTNAME" --source='
     /-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/{if(/-----BEGIN CERTIFICATE-----/){a++}
-    out="/tmp/hostname"a".crt"; print >out}' -- <(echo "" | openssl s_client -showcerts -connect api.githubcopilot.com:443 2>/dev/null)
+    out="/tmp/" hostname a ".crt"; print >out}' -- <(echo "" | openssl s_client -showcerts -connect api.githubcopilot.com:443 2>/dev/null)
 mkdir -p "$_CERTDIR"
 # Make them pem files, find the self-signed ones and save them
 for i in "/tmp/$_HOSTNAME"*.crt; do
-    openssl x509 -in "$i" -out "${i%.*}.pem" -outform PEM
-    if grep -oqw OK <(openssl verify -verbose -CAfile "${i%.*}.pem" "${i%.*}.pem"); then
+    openssl x509 -in "$i" -out "${i%.*}.pem" -outform PEM 2>/dev/null
+    if grep -oqw OK <(openssl verify -verbose -CAfile "${i%.*}.pem" "${i%.*}.pem" 2>/dev/null); then
         cp -v "${i%.*}.pem" "$_CERTDIR"
         _SELFSIGNED+=":${_CERTDIR}/${i%.*}.pem"
     fi
