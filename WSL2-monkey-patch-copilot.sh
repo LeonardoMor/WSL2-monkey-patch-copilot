@@ -20,7 +20,7 @@ Description:
 
 Usage:
     
-    WSL2-monkey-patch-copilot.sh [OPTIONS] chat [copilot]
+    WSL2-monkey-patch-copilot.sh [OPTIONS] {chat|copilot}
 
 Options:
   -h  Show this help message.
