@@ -96,7 +96,7 @@ for i in "/tmp/$_HOSTNAME"*.crt; do
 done
 _SELFSIGNED="${_SELFSIGNED#:}"
 # Do the thing
-printf "Adding self-signed certificates to NODE_EXTRA_CA_CERTS and exporting the variable in %s. Be sure to restart your shell.\n" "$_SRC"
+printf "\nAdding self-signed certificates to NODE_EXTRA_CA_CERTS and exporting the variable in %s. Be sure to restart your shell.\n" "$_SRC"
 sed -i.bak -En '
 /^export NODE_EXTRA_CA_CERTS=/!{
 p
@@ -107,3 +107,5 @@ q
 }
 }
 /^(export NODE_EXTRA_CA_CERTS=)(.*)/{ s||\1\2:'"$_SELFSIGNED"'|p; h; }' -- "$_SRC"
+printf "\ntail %s\n" "$_SRC"
+tail "$_SRC"
