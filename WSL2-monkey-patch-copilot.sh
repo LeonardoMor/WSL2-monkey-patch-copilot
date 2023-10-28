@@ -83,14 +83,14 @@ fi
 for c; do
     case $c in
     copilot)
-        if [[ $_UNDO -eq 0 ]]; then
+        if ((_UNDO == 0)); then
             patch "$_COPILOTDIR"
         else
             undo "$_COPILOTDIR"
         fi
         ;;
     chat)
-        if [[ $_UNDO -eq 0 ]]; then
+        if ((_UNDO == 0)); then
             patch "$_COPILOTCHATDIR"
         else
             undo "$_COPILOTCHATDIR"
@@ -98,6 +98,7 @@ for c; do
         ;;
     *)
         echo "Invalid Argument: $c" >&2
+        help
         exit 1
         ;;
     esac
