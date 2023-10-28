@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# WSL2-monkey-patch-copilot.sh
+# A script to patch the GitHub Copilot and Copilot Chat extensions for VS Code to allow them to work with self-signed certificates.
+# Updates to these extensions will likely break the patch.
+# Based on: https://stackoverflow.com/a/72136715/7830232
+#
+# Leonardo Mora Castro
+# October, 2023
+
 _VSCODEDIR=~/".vscode-server/extensions"
 _COPILOTDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilot-[1-9]*" | sort -V | tail -1)"
 _COPILOTCHATDIR="$(find "${_VSCODEDIR}" -maxdepth 1 -type d -name "github.copilot-chat-[0-9]*" | sort -V | tail -1)"
