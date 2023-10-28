@@ -91,9 +91,10 @@ for i in "/tmp/$_HOSTNAME"*.crt; do
     openssl x509 -in "$i" -out "${i%.*}.pem" -outform PEM 2>/dev/null
     if grep -oqw OK <(openssl verify -verbose -CAfile "${i%.*}.pem" "${i%.*}.pem" 2>/dev/null); then
         cp -v "${i%.*}.pem" "$_CERTDIR"
-        _SELFSIGNED+=":${_CERTDIR}/${i%.*}.pem"
+        _SELFSIGNED+=":${_CERTDIR}/$(basename "${i%.*}.pem")"
     fi
 done
+_SELFSIGNED="${_SELFSIGNED#:}"
 # Do the thing
 printf "Adding self-signed certificates to NODE_EXTRA_CA_CERTS and exporting the variable in %s. Be sure to restart your shell.\n" "$_SRC"
 sed -i.bak -En '
