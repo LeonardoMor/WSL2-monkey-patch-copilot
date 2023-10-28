@@ -13,6 +13,25 @@
 _HOSTNAME="$(hostname)"
 _CERTDIR=/etc/ssl/certs
 
+help() {
+    cat <<EOF
+Usage: $0 [-h] [-u] [rcfile]
+
+This script adds self-signed certificates to the NODE_EXTRA_CA_CERTS environment variable, allowing NodeJS to make HTTPS requests to servers with self-signed certificates.
+
+If no rcfile is specified, the script will try to detect the user's shell and use the appropriate rc file (either ~/.bashrc or ~/.zshrc).
+
+Options:
+  -h    Show this help message and exit.
+  -u    Undo changes made by a previous run of the script.
+
+Examples:
+  $0
+  $0 ~/.bashrc
+  $0 -u
+EOF
+}
+
 undo() {
     if [[ -f "$_SRC.bak" ]]; then
         printf "Undoing changes to %s...\n" "$_SRC"
@@ -43,7 +62,7 @@ while getopts ":hu" opt; do
 done
 shift $((OPTIND - 1))
 
-if (( _UNDO == 1 )); then
+if ((_UNDO == 1)); then
     undo
 fi
 
