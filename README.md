@@ -10,6 +10,8 @@ Installing VS Code Insiders and the latest pre-release versions of Copilot and C
 
 The scripts below go around this problem. There's no need to run the two. It's probably better if you use `WSL2-js-allow-selfsigned.sh`.
 
+Use one or the other.
+
 ## WSL2-monkey-patch-copilot.sh
 This is very unsafe. After Very much based on: https://stackoverflow.com/a/72136715/7830232
 
