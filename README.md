@@ -13,7 +13,7 @@ The scripts below go around this problem. There's no need to run the two. It's p
 Use one or the other.
 
 ## WSL2-monkey-patch-copilot.sh
-This is very unsafe. After Very much based on: https://stackoverflow.com/a/72136715/7830232
+This is very unsafe. Very much based on: https://stackoverflow.com/a/72136715/7830232
 
 
 ## WSL2-js-allow-selfsigned.sh
